@@ -4,6 +4,8 @@ import { defineStore } from 'pinia'
 import type { Product } from '@/models/product'
 import axios from 'axios'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 export const useProductStore = defineStore('product', () => {
   const products = ref<Product[]>([])
   const isLoading = ref<boolean>(false)
@@ -11,7 +13,7 @@ export const useProductStore = defineStore('product', () => {
   async function loadProduct(keyword : string = "") {
     try {
       isLoading.value = true
-      const response = await axios.get<Product[]>('http://localhost:3000/products', {
+      const response = await axios.get<Product[]>(API_BASE_URL + '/products', {
         params : keyword ? { keyword } : {}
       })
       products.value = response.data
@@ -26,7 +28,7 @@ export const useProductStore = defineStore('product', () => {
   async function getProductDetail(id : string) : Promise<Product> {
     try {
       isLoading.value = true
-      const response = await axios.get<Product>(`http://localhost:3000/products/${id}`)
+      const response = await axios.get<Product>(API_BASE_URL + `/products/${id}`)
       return response.data
     } catch (err:any) {
       console.error(`Failed to load product ${id}:`, err)
@@ -39,7 +41,7 @@ export const useProductStore = defineStore('product', () => {
   async function createProduct(newProductData: Omit<Product, 'id'>) {
     try {
       isLoading.value = true
-      const response = await axios.post<Product>('http://localhost:3000/products', newProductData)
+      const response = await axios.post<Product>(API_BASE_URL + '/products', newProductData)
       
       loadProduct()
     } catch (err) {
@@ -53,7 +55,7 @@ export const useProductStore = defineStore('product', () => {
   async function updateProduct(id: number, newProductData: Omit<Product, 'id'>) {
     try {
       isLoading.value = true
-      const response = await axios.patch<Product>('http://localhost:3000/products/' + id, newProductData)
+      const response = await axios.patch<Product>(API_BASE_URL + '/products/' + id, newProductData)
       products.value = [...products.value, response.data]
       
       loadProduct()
@@ -68,7 +70,7 @@ export const useProductStore = defineStore('product', () => {
   async function deleteProduct(id: number) {
     try {
       isLoading.value = true
-      const response = await axios.delete('http://localhost:3000/products/' + id)
+      const response = await axios.delete(API_BASE_URL + '/products/' + id)
       loadProduct()
     } catch (err) {
       console.error('Failed to create product:', err)
