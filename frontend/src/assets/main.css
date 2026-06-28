@@ -1,35 +1,61 @@
+@import "tailwindcss";
 @import './base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
-}
-
-a,
-.green {
+a{
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
   transition: 0.4s;
   padding: 3px;
+  border-radius: 5px;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+h1 {
+  font-size : 28px;
+  font-weight: 600;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+h3 {
+  font-size : 16px;
+  font-weight: 600;
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+input, textarea {
+  padding : 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding : 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--color-brand-secondary);
+  color: white;
+  cursor: pointer;
+
+  transition: 0.4s;
+
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: var(--color-brand-primary);
+}
+
+.secondary-button {
+  border: 0.5px solid grey;
+  background-color : white;
+  color : black;
+}
+
+.secondary-button:hover {
+  background-color: grey;
+}
+
+.product-item {
+  border: 0.5px solid #ebebeb;
+}
+
+@theme {
+  --color-brand-primary: #0b3f83; 
+  --color-brand-secondary: #1372ec;
 }

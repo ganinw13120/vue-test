@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl } from 'class-validator';
 
-export class CreateProductDto {
+export class ProductDto {
   @IsNotEmpty()
   @IsNumber()
   gvtId!: number;
@@ -26,7 +26,7 @@ export class CreateProductDto {
   logoLocation?: string;
 
   @IsNotEmpty()
-  @IsUrl()
+  @IsString()
   productUrl!: string;
 
   @IsNotEmpty()
@@ -34,18 +34,10 @@ export class CreateProductDto {
   voucherTypeName!: string;
 
   @IsNotEmpty()
-  @IsUrl()
+  @IsString()
   orderUrl!: string;
 
   @IsNotEmpty()
   @IsString()
   productTitle!: string;
-
-  @IsOptional()
-  @IsString()
-  variableDenomPriceMinAmount?: string;
-
-  @IsOptional()
-  @IsString()
-  variableDenomPriceMaxAmount?: string;
 }
