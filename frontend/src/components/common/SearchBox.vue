@@ -17,7 +17,7 @@ const handleSearch = () => {
         <input
             v-model="keyword"
             placeholder="Search products..."
-            class="shadow w-1/2"
+            class="shadow w-full lg:w-1/2"
             @keyup.enter="handleSearch"
         />
         <button 
