@@ -9,7 +9,6 @@ describe('ProductsService', () => {
   let service: ProductsService;
   let repository: ProductsRepository;
 
-  // Mock domain data blueprints for validation checks
   const mockProduct: Product = {
     id: 1,
     gvtId: 1,
@@ -38,7 +37,6 @@ describe('ProductsService', () => {
     productTitle: 'New Title',
   };
 
-  // 💡 Mocking Object for the Repository Gateway Layer
   const mockProductsRepository = {
     findAll: jest.fn(),
     findById: jest.fn(),
