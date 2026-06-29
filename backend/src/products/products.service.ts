@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ProductsRepository } from './products.repository';
 import { Product } from './models/product';
 import { ProductDto } from './dto/products.dto';
+import { ProductNotFoundError } from './exceptions/product-not-found.error';
 
 @Injectable()
 export class ProductsService {
@@ -11,8 +12,12 @@ export class ProductsService {
         return this.productsRepository.findAll(keyword);
     }
 
-    getProductById(id: number): Promise<Product | null> {
-        return this.productsRepository.findById(id);
+    async getProductById(id: number): Promise<Product> {
+        const product = await this.productsRepository.findById(id)
+        if (!product) {
+            throw new ProductNotFoundError(id);
+        }
+        return product;
     }
 
     create(newProduct: ProductDto): Promise<Product> {
@@ -29,7 +34,7 @@ export class ProductsService {
     async update(id : number, product: ProductDto): Promise<Product> {
         const existingProduct = await this.productsRepository.findById(id)
         if (!existingProduct) {
-            throw new NotFoundException(`Product with ID ${id} not found`);
+            throw new ProductNotFoundError(id);
         }
 
         const newProduct: Product = {
@@ -43,7 +48,7 @@ export class ProductsService {
     async delete(id : number) {
         const product = await this.productsRepository.findById(id)
         if (!product) {
-            throw new NotFoundException(`Product with ID ${id} not found`);
+            throw new ProductNotFoundError(id);
         }
         return this.productsRepository.delete(id)
     }

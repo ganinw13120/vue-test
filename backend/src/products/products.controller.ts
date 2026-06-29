@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Patch, Post, Query, ParseIntPipe, Delete,
 import { ProductsService } from './products.service';
 import { ProductDto } from './dto/products.dto';
 import { Product } from './models/product';
+import { ProductNotFoundError } from './exceptions/product-not-found.error';
 
 @Controller('products')
 export class ProductsController {
@@ -15,11 +16,15 @@ export class ProductsController {
 
     @Get(':id')
     async getProductById(@Param('id') id: string) {
-        const product = await this.productsService.getProductById(Number(id));
-        if (!product) {
-            throw new NotFoundException(`Product with ID ${id} not found`);
+        try {
+            const product = await this.productsService.getProductById(Number(id));
+            return product
+        } catch (e) {
+            if (e instanceof ProductNotFoundError) {
+                throw new NotFoundException(e.message);
+            }
+            throw e;
         }
-        return product
     }
 
     @Post()
@@ -29,11 +34,25 @@ export class ProductsController {
 
     @Patch(':id')
     async updateProduct(@Param('id', ParseIntPipe) id: number,@Body() productDto: ProductDto): Promise<Product> {
-        return this.productsService.update(id, productDto);
+        try {
+            return await this.productsService.update(id, productDto);
+        } catch (e) {
+            if (e instanceof ProductNotFoundError) {
+                throw new NotFoundException(e.message);
+            }
+            throw e;
+        }
     }
 
     @Delete(':id')
     async removeProduct(@Param('id', ParseIntPipe) id: number) {
-        return this.productsService.delete(id);
+        try {
+            return await this.productsService.delete(id);
+        } catch (e) {
+            if (e instanceof ProductNotFoundError) {
+                throw new NotFoundException(e.message);
+            }
+            throw e;
+        }
     }
 }
