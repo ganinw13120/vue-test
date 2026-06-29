@@ -2,7 +2,7 @@
 import { onMounted } from 'vue'
 import Navbar from '@/components/layout/Navbar.vue'
 import SearchBox from '@/components/common/SearchBox.vue'
-import ProductListItem from '@/components/product/ProductListItem.vue'
+import ProductListItem from '@/components/product/ListItem.vue'
 import { useProductStore } from '@/stores/product'
 
 const productStore = useProductStore()
@@ -24,7 +24,7 @@ const onSearch = async (keyword : string) => {
       <SearchBox @search="onSearch" />
       <div>
         <router-link 
-          to="/create" 
+          to="/products/create" 
         >
           <button>+ Add new product</button>
         </router-link>

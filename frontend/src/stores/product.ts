@@ -52,7 +52,7 @@ export const useProductStore = defineStore('product', () => {
     }
   }
 
-  async function updateProduct(id: number, newProductData: Omit<Product, 'id'>) {
+  async function updateProduct(id: string, newProductData: Omit<Product, 'id'>) {
     try {
       isLoading.value = true
       const response = await axios.patch<Product>(API_BASE_URL + '/products/' + id, newProductData)
@@ -67,7 +67,7 @@ export const useProductStore = defineStore('product', () => {
     }
   }
 
-  async function deleteProduct(id: number) {
+  async function deleteProduct(id: string) {
     try {
       isLoading.value = true
       const response = await axios.delete(API_BASE_URL + '/products/' + id)

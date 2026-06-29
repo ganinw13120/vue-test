@@ -10,7 +10,7 @@ const description = DOMPurify.sanitize(props.product.shortDescription)
 </script>
 
 <template>
-    <a :href="`/product/${product.id}`">
+    <a :href="`/products/${product.id}`">
         <div class="flex w-full product-item shadow p-3 rounded w-full hover:bg-gray-100">
             <div v-if="product.logoLocation">
                 <img :src="product.logoLocation" 

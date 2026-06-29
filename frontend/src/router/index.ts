@@ -13,18 +13,18 @@ const router = createRouter({
       component: HomePage,
     },
     {
-      path: '/create',
+      path: '/products/create',
       name: 'create',
       component: CreatePage,
     },
     {
-      path: '/product/:id',
+      path: '/products/:id',
       name: 'product-detail',
       component: ProductPage,
       props: true
     },
     {
-      path: '/product/:id/edit',
+      path: '/products/:id/edit',
       name: 'product-edit',
       component: EditProductPage,
       props: true

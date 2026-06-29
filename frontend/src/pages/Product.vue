@@ -25,7 +25,7 @@ onMounted(async () => {
 })
 
 const handleEditProduct = () => {
-    router.push('/product/' + props.id + '/edit')
+    router.push('/products/' + props.id + '/edit')
 }
 
 const handleDeleteProduct = async () => {
@@ -40,15 +40,15 @@ const handleDeleteProduct = async () => {
     <Navbar />
     <div class="container mx-auto px-4 py-3 gap-4 flex flex-col">
         <div class="flex gap-6 my-3">
-            <button class="secondary-button shadow" @click="router.push('/')">
+            <button class="secondary-button shadow" data-test="back-button" @click="router.push('/')">
             ← Back to products
             </button>
 
-            <button class="secondary-button shadow" @click="handleEditProduct">
+            <button class="secondary-button shadow" data-test="edit-button" @click="handleEditProduct">
             Edit
             </button>
 
-            <button class="secondary-button shadow" @click="handleDeleteProduct">
+            <button class="secondary-button shadow" data-test="delete-button" @click="handleDeleteProduct">
             Delete
             </button>
         </div>
@@ -64,6 +64,7 @@ const handleDeleteProduct = async () => {
                 <img 
                     v-if="product.logoLocation" 
                     :src="product.logoLocation" 
+                    @error="(e) => (e.target as HTMLImageElement).style.display = 'none'"
                     alt="Product Logo" 
                     class="w-16 h-16 rounded-lg object-cover bg-slate-100 border border-slate-100"
                 />
